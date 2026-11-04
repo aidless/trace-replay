@@ -1,0 +1,3 @@
+{"type":"trace","schema_version":1,"trace_id":"fail-stub-divergence-006","task":"录制值与本地 stub 重算不一致","limits":{"max_steps":8,"max_repeats":3},"scorers":[{"id":"any","type":"exact_match","config":{"path":"answer.text","expected":"5"}}]}
+{"type":"step","index":0,"span_id":"s0","tool":"calc","args":{"expression":"2+3"},"observation":{"status":"ok","value":7},"latency_ms":3}
+{"type":"final","index":1,"answer":{"text":"5"}}

@@ -1,0 +1,41 @@
+name: ci
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install (dev extras only)
+        run: python -m pip install --upgrade pip && python -m pip install -e ".[dev]"
+      - name: Unit tests
+        run: python -m pytest -q
+      - name: Determinism proof (two replays)
+        run: python -m trace_replay verify --trace examples/traces/ok_search_calc.jsonl --runs 2
+      - name: CLI smoke (PASS)
+        run: python -m trace_replay run --trace examples/traces/ok_search_calc.jsonl --out "$RUNNER_TEMP/out"
+      - name: CLI smoke (FAIL is fail-closed)
+        run: |
+          python -m trace_replay run --trace examples/traces/fail_loop.jsonl --out "$RUNNER_TEMP/fail" || code=$?
+          test "${code:-0}" -eq 1
+
+  mypy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --upgrade pip && python -m pip install -e ".[dev]"
+      - run: python -m mypy --strict trace_replay
