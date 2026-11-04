@@ -15,7 +15,7 @@ eval-sandbox（怎么安全地跑） → trace-replay（同一份轨迹能不能
 ## 3 分钟跑通
 
 ```bash
-git clone <repo-url> && cd trace-replay
+git clone https://github.com/aidless/trace-replay.git && cd trace-replay
 python3 -m trace_replay run --trace examples/traces/ok_search_calc.jsonl --out out
 ```
 
@@ -201,12 +201,6 @@ python3 -m pytest -q
 python3 -m mypy --strict trace_replay
 ```
 
-本地仓库路径：`/home/liuzewen/trace-replay`（仅本地 `git init` + 首个 commit，未 push）。
+## 远端
 
-## 远端地址（待用户决定）
-
-本仓库**没有**创建任何 GitHub 仓库。要发布时需要用户指定并授权：
-
-- 目标地址：`https://github.com/<你的账号>/trace-replay`
-- 需要动作：创建远端仓库 → `git remote add origin <url>` → 首次 `git push -u origin main`
-- 无历史改写、无 force push、无 PyPI 发布。
+<https://github.com/aidless/trace-replay>（公开）。无历史改写、无 force push、无 PyPI 发布。
