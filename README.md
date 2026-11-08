@@ -196,8 +196,9 @@ trace-replay/
 ## 开发与测试
 
 ```bash
-python3 -m pip install -e ".[dev]"   # 只有 pytest / mypy，运行期仍零依赖
-python3 -m pytest -q
+python3 -m pip install -r requirements.lock   # 钉死 pytest / mypy 版本（运行期仍零依赖）
+python3 -m pip install -e . --no-deps
+python3 -m pytest -q                          # 111 passed
 python3 -m mypy --strict trace_replay
 ```
 
