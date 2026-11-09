@@ -1,5 +1,7 @@
 # trace-replay
 
+[![CI](https://github.com/aidless/trace-replay/actions/workflows/ci.yml/badge.svg)](https://github.com/aidless/trace-replay/actions/workflows/ci.yml)
+
 **离线、确定性、fail-closed 的 agent 轨迹重放评测器。零第三方依赖，只用 Python 3.10+ 标准库。**
 
 它是「可复现 LLM 评测闭环」里缺失的中间一环：
