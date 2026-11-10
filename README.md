@@ -16,6 +16,17 @@ eval-sandbox（怎么安全地跑） → trace-replay（同一份轨迹能不能
 
 ## 3 分钟跑通
 
+**免安装直接跑（Release 产物）**：
+
+```bash
+curl -L -o trace-replay.pyz https://github.com/aidless/trace-replay/releases/download/v0.1.0/trace-replay.pyz
+python3 trace-replay.pyz run --trace examples/traces/ok_search_calc.jsonl --out out
+```
+
+`trace-replay.pyz` 是自包含 zipapp（仅标准库，53 KB），从 `v0.1.0` tag 由 `scripts/build_zipapp.sh` 构建；上传后重新下载实测 sha256 与构建产物一致，`run`/`verify` 输出与下文「实测数据」同哈希。
+
+从源码跑：
+
 ```bash
 git clone https://github.com/aidless/trace-replay.git && cd trace-replay
 python3 -m trace_replay run --trace examples/traces/ok_search_calc.jsonl --out out
@@ -192,6 +203,7 @@ trace-replay/
 │   └── cli.py        # run / verify / list-errors / list-scorers
 ├── examples/traces/  # 2 条 PASS + 5 条 fail-closed 示例
 ├── tests/            # 111 个用例
+├── scripts/build_zipapp.sh  # 打包自包含 trace-replay.pyz（Release 资产）
 └── .github/workflows/ci.yml
 ```
 
